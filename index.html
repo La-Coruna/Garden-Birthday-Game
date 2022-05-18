@@ -12,13 +12,13 @@
            </div>
             <div id="point" class="globalMenu">
                 <span>Point</span>
-                <span>0</span>
+                <span id="pointValue">0</span>
             </div>
             <div id="crystal" class="globalMenu">
                 <span>Crystal</span>
-                <span>0</span>
+                <span id="crystalValue">0</span>
             </div>
-            <div id="shop">shop</div>
+            <div id="shopBtn" class="globalMenu">shop</div>
         </header>
         <main>
             <div id="wrapper">
@@ -26,7 +26,37 @@
 
             <div id="missionViewer" class="popup">
                 <button id="hideMissionViewerBtn" class="cancelBtn">X</button>
-                <div id="missionViewerText"></div>
+                <div id="missionViewerText1" class="missionViewerText"></div>
+                <div id="missionViewerText2" class="missionViewerText"></div>
+                <div id="inputPoint">
+                    <input id="inputPointValue">
+                    <button id="inputPointBtn">얻기</button>
+                </div>
+            </div>
+            <div id="shop" class="popup">
+                <button id="hideShopBtn" class="cancelBtn">X</button>
+                <div id="shopText1" class="ShopText">Shop</div>
+                <div id="shopWrapper">
+                    <div>
+                        <div>일반</div>
+                        <img id=shop0Img src="./img/shop0.png">
+                        <div id="shop0Value">0</div>
+                    </div>
+                    <div>
+                        <div>고급</div>
+                        <img id=shop1Img src="./img/shop1.png">
+                        <div id="shop1Value">0</div>
+                    </div>
+                    <div>
+                        <div>희귀</div>
+                        <img id=shop2Img src="./img/shop2.png">
+                        <div id="shop2Value">0</div>
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+                
             </div>
         </main>
         <script language="JavaScript" src="main.js" charset="UTF-8"></script>

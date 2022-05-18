@@ -1,7 +1,15 @@
 const mission=[
     //easy mission
-    {content:"묵찌빠",imgSrc:"https://cdn.crowdpic.net/detail-thumb/thumb_d_4ABE250623ED062CF7DBB6CFB93E364E.jpg",detail:"aaaa"},
-    {content:"팔씨름",imgSrc:"./a.png",detail:"bbbb"},
+    {
+        content:"묵찌빠",
+        imgSrc:"https://cdn.crowdpic.net/detail-thumb/thumb_d_4ABE250623ED062CF7DBB6CFB93E364E.jpg",
+        detail:"묵찌빠를 해서 이긴 만큼 1 point!"
+    },
+    {
+        content:"팔씨름",
+        imgSrc:"https://cdn.crowdpic.net/detail-thumb/thumb_d_4ABE250623ED062CF7DBB6CFB93E364E.jpg",
+        detail:"bbbb"
+    },
     {content:"물병 세우기",imgSrc:"./a.png",detail:"avccsdf"},
     {content:"트럼프 짝지기",imgSrc:"./a.png",detail:"asccdf"},
     {content:"의학용어 맞추기",imgSrc:"./a.png",detail:"asededf"},
@@ -16,12 +24,36 @@ const mission=[
 ];
 
 const easyMissionNum=8;
+var HBDPoint=0;
+var HBDCrystal=0;
+var HBDShop0=10;
+var HBDShop1=10;
+var HBDShop2=10;
+
+const diceImg=document.getElementById("diceImg");
+const diceValue=document.getElementById("diceValue");
+const pointValue=document.getElementById("pointValue");
+const crystalValue=document.getElementById("crystalValue");
+
+const shopBtn=document.getElementById("shopBtn");
+const shop=document.getElementById("shop");
+const shop0Value=document.getElementById("shop0Value");
+const shop1Value=document.getElementById("shop1Value");
+const shop2Value=document.getElementById("shop2Value");
+const hideShopBtn=document.getElementById("hideShopBtn");
 
 const wrapper = document.getElementById("wrapper");
 const missionViewer=document.getElementById("missionViewer");
-const missionViewerText=document.getElementById("missionViewerText")
+const missionViewerText1=document.getElementById("missionViewerText1");
+const missionViewerText2=document.getElementById("missionViewerText2");
+const inputPointValue=document.getElementById("inputPointValue");
+const inputPointBtn=document.getElementById("inputPointBtn");
 const hideMissionViewerBtn = document.getElementById("hideMissionViewerBtn");
-hideMissionViewerBtn.addEventListener("click",hideMissionViewer);
+
+function roll(){
+    const rand_1_6 = Math.floor(Math.random() * 6) + 1;
+    diceValue.innerText=rand_1_6;
+}
 
 function missionOpen(e) {
     
@@ -40,6 +72,18 @@ function missionOpen(e) {
     missionItem.addEventListener("click",(i)=>{showMissionViewer(i.target);});
 
     localStorage.setItem("HBDMission"+missionID,1);
+    return;
+}
+
+function submitPoint(){
+    HBDPoint+=Number(inputPointValue.value);
+    pointValue.innerText=HBDPoint;
+    localStorage.setItem("HBDPoint",HBDPoint)
+    return;
+}
+function submitCrystal(crystal){
+    HBDCrystal+=Number(crystal);
+    localStorage.setItem("HBDCrystal",HBDCrystal)
     return;
 }
 
@@ -76,9 +120,9 @@ function insertMission(){
 function showMissionViewer(target){
     const missionItem = target;
     const missionID=missionItem.id.slice(7);
-    const missionDetail = mission[missionID].detail;
 
-    missionViewerText.innerText=missionDetail;
+    missionViewerText1.innerText=mission[missionID].content;
+    missionViewerText2.innerText=mission[missionID].detail;
     
     missionViewer.style.display="block";
 
@@ -90,6 +134,17 @@ function hideMissionViewer(){
     //plz find by ID and remove
 }
 
+function showShop(){
+    shop.style.display="block";
+
+
+    return;
+}
+function hideShop(){
+    shop.style.display="none";
+    
+}
+
 function resetCookie(){
     for(i=0; i<mission.length;i++){
         localStorage.setItem("HBDMission"+i,"0");
@@ -98,6 +153,33 @@ function resetCookie(){
 }
 
 function init(){
+    if(localStorage.getItem("HBDPoint")!=null){
+        HBDPoint = Number(localStorage.getItem("HBDPoint"));
+        pointValue.innerText=HBDPoint;
+    }
+
+    if(localStorage.getItem("HBDCrystal")!=null){
+        HBDCrystal = Number(localStorage.getItem("HBDCrystal"));
+        crystalValue.innerText=HBDCrystal;
+    }
+    if(localStorage.getItem("HBDShop0")!=null){
+        HBDShop0 = Number(localStorage.getItem("HBDShop0"));
+        HBDShop0Value.innerText=HBDShop0;
+    }
+    if(localStorage.getItem("HBDShop1")!=null){
+        HBDShop1 = Number(localStorage.getItem("HBDShop1"));
+        HBDShop1Value.innerText=HBDShop1;
+    }
+    if(localStorage.getItem("HBDShop2")!=null){
+        HBDShop2 = Number(localStorage.getItem("HBDShop2"));
+        HBDShop2Value.innerText=HBDShop2;
+    }
+
+    shopBtn.addEventListener("click",showShop);
+    hideShopBtn.addEventListener("click",hideShop);
+    inputPointBtn.addEventListener("click",submitPoint);
+    hideMissionViewerBtn.addEventListener("click",hideMissionViewer);
+    diceImg.addEventListener("click",roll);
     insertMission();
 }
 
